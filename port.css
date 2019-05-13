@@ -1,0 +1,81 @@
+body{
+	background-image:url(/home/aryan/Desktop/Country.jpg) ;
+	
+    background-size: 100%;
+}
+ul {
+  list-style-type: none;
+  padding-left:  : 100px;
+  padding-right: 100px;
+  overflow: hidden;
+  display: table;
+  margin:  0 auto;
+  font-family: Raleway;
+
+}
+
+li {
+  float:center ;
+  background-color: none;
+  display: inline;
+  min-width: 700px;
+  font-size: 35px;
+
+}
+
+li a {
+  box-shadow: inset;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  text-decoration: underline;
+  z-index: 0;
+  cursor: pointer;
+}
+li a:hover
+{
+    opacity: 0.5;
+    transition: all; 0.3s;
+}
+header {
+  padding: 50px;
+  text-align: center;
+  color:orange;
+
+}
+
+img{
+	border: : 20px solid;
+	float: right;
+	padding-right: 10px;
+	margin-right: 40px;
+	margin-top: 50px;
+  border-radius: 50px;
+}
+p{
+	font-family: verdana;
+  font-size: 50px;
+  color: orange;
+  overflow: next;
+  font-style: bold;
+  text-align: justify-all;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: rgba(179, 0, 0,35%);
+  padding-left: 3%;
+  border-radius: 45px;
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 80px;
+  background-color: black;
+  text-align: center;
+  color: orange;
+  font-size: 20px;
+}
+
+
