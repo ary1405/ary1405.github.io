@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>Snake Game</title>
+   <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body >
+    <section class="header" ></section>
+
+
+    <section class="heading">snake Game</section>
+
+
+    <section class="game_1">
+    <canvas class="canvas"  id="gameCanvas" width="300" height="300"></canvas>
+    </section>
+
+   
+    
+
+
+<section class="play" >
+    <div class="radio">
+        <br><label>select Snake Speed :</label>
+        <input id="speed" type="radio" name="speed" value="200"><label>slow</label>
+        <input id="speed" type="radio" name="speed" value="100"><label>medium</label>
+        <input id="speed" type="radio" name="speed" value="50"><label>fast  &nbsp;&nbsp;&nbsp;</label>
+        <input  class="button" type="button" value="Select Speed">
+        </div>
+    <p class="score"  id="score" >Click start to play</p>
+
+
+    <button class="button" id="start">start</button>
+
+    </section>
+
+
+    
+    
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+      
+      const CANVAS_BORDER_COLOUR = "yellow";
+      const CANVAS_BACKGROUND_COLOUR = "blue";
+
+      var gameCanvas = document.getElementById("gameCanvas");  
+      var ctx = gameCanvas.getContext("2d");
+      var but = document.getElementById("start");
+
+     
+      ctx.fillStyle = CANVAS_BACKGROUND_COLOUR;     
+      ctx.strokestyle = CANVAS_BORDER_COLOUR;
+     
+      ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);   
+      ctx.strokeRect(-10, -10, gameCanvas.width+10, gameCanvas.height+10);
+
+      let snake = [
+        {x: 150, y: 150},
+        {x: 140, y: 150},
+        {x: 130, y: 150},
+        {x: 120, y: 150},
+        {x: 110, y: 150}
+      ]
+
+      let maze_1 = [
+         {x: 30, y: 30},                
+         {x: 30, y: 40},
+         {x: 30, y: 50},
+         {x: 30, y: 50},
+         {x: 30, y: 60},
+         {x: 30, y: 70},
+         {x: 30, y: 80},
+         {x: 30, y: 90},
+         {x: 30, y: 100},
+         {x: 30, y: 110},
+         {x: 30, y: 120},{x: 40, y: 120},{x: 50, y: 120},{x: 60, y: 120},{x: 70, y: 120},{x: 80, y: 120},{x: 90, y: 120},
+         
+         {x: 30, y: 170},{x: 40, y: 170},{x: 50, y: 170},{x: 60, y: 170},{x: 70, y: 170},{x: 80, y: 170},{x: 90, y: 170},
+         {x: 30, y: 180},
+         {x: 30, y: 190},
+         {x: 30, y: 200},
+         {x: 30, y: 210},
+         {x: 30, y: 220},
+         {x: 30, y: 230},
+         {x: 30, y: 240},
+         {x: 30, y: 250},
+         {x: 30, y: 260},
+
+
+
+         {x: 260, y: 30},
+         {x: 260, y: 40},
+         {x: 260, y: 50},
+         {x: 260, y: 50},
+         {x: 260, y: 60},
+         {x: 260, y: 70},
+         {x: 260, y: 80},
+         {x: 260, y: 90},
+         {x: 260, y: 100},
+         {x: 260, y: 110},
+          {x: 260, y: 120},{x: 250, y: 120},{x: 240, y: 120},{x: 230, y: 120},{x: 220, y: 120},{x: 210, y: 120},{x: 200, y: 120},
+           {x: 260, y: 170},{x: 250, y: 170},{x: 240, y: 170},{x: 230, y: 170},{x: 220, y: 170},{x: 210, y: 170},{x: 200, y: 170},
+
+           {x: 260, y: 180},
+         {x: 260, y: 190},
+         {x: 260, y: 200},
+         {x: 260, y: 210},
+         {x: 260, y: 220},
+         {x: 260, y: 230},
+         {x: 260, y: 240},
+         {x: 260, y: 250},
+         {x: 260, y: 260},
+
+
+        ]
+
+
+
+        console.log(maze_1);
+
+        let changingDirection = false;
+
+
+var game_speed;
+    $(document).ready(function(){
+        $("input[type='button']").click(function(){
+            var radioValue = $("input[name='speed']:checked").val();
+            if(radioValue){
+                game_speed = radioValue;
+                console.log(game_speed);
+            }
+        });
+        
+    });
+
+
+
+
+      let dx = 10;
+      let dy = 0;
+      let fx,fy,score=0;
+
+
+      dx = 0;
+      dy = -10;
+
+      var self=0,wall=0;
+
+      var food_maze = 0;
+        maze_draw(maze_1);
+        snake_draw(snake);
+
+       start.addEventListener ("click", function() {
+   Move_Snake();
+      snake_draw(snake);
+      main();
+      food_cord();    
+      document.addEventListener("keydown", changeDirection);
+
+});
+
+       window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
+     
+      function snake_draw(element){
+        //var x,var y;
+        for (var i = 0; i < element.length; i++) {
+             block_draw(element[i].x,element[i].y);
+
+        };
+}
+      function maze_draw(element){
+        //var x,var y;
+        for (var i = 0; i < element.length; i++) {
+             maze_block(element[i].x,element[i].y);
+
+        };
+}
+
+      function maze_block (x,y) {
+    
+          ctx.fillStyle = "green";
+          ctx.fillRect(x, y, 10, 10);
+          ctx.strokeRect(x, y, 10, 10);
+        }
+
+
+      function block_draw (x,y) {
+    
+          ctx.fillStyle = "orange";
+          ctx.fillRect(x, y, 10, 10);
+          ctx.strokeRect(x, y, 10, 10);
+        }
+
+        function Move_Snake() {
+          const head = {x: snake[0].x + dx, y: snake[0].y+dy};
+          snake.unshift(head);
+          const didEatFood = snake[0].x === fx && snake[0].y === fy;
+          if (didEatFood) {
+            console.log("ghsfhf");
+            food_cord();
+            score=score+10;
+            document.getElementById('score').innerHTML = score;
+          } else {
+                    //console.log(snake[0].x,fx);
+            snake.pop();
+          }
+          
+        }
+
+        function clear(){
+          ctx.clearRect(0,0,gameCanvas.width, gameCanvas.height);
+          ctx.fillStyle = CANVAS_BACKGROUND_COLOUR;
+          ctx.strokestyle = CANVAS_BORDER_COLOUR;
+          ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+          ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
+           maze_draw(maze_1);
+
+        }
+function main(){
+      if(game_end()) {
+                       return restart();
+};
+
+
+      setTimeout( function move() {
+      clear();
+      food_draw();
+      Move_Snake();
+      snake_draw(snake);
+      main();
+
+    }, game_speed);
+
+}
+
+
+function restart () {window.alert("your score is:"+score);
+                               location.reload();
+    // body...
+}
+
+
+function changeDirection(event) {
+      const LEFT_KEY = 37;
+      const RIGHT_KEY = 39;
+      const UP_KEY = 38;
+      const DOWN_KEY = 40;
+      const keyPressed = event.keyCode;
+      const goingUp = dy === -10;
+      const goingDown = dy === 10;
+      const goingRight = dx === 10;
+      const goingLeft = dx === -10;
+
+      
+
+
+      if (keyPressed === LEFT_KEY && !goingRight) {
+        dx = -10;
+        dy = 0;
+      }
+      
+      if (keyPressed === UP_KEY && !goingDown) {
+        dx = 0;
+        dy = -10;
+      }
+      
+      if (keyPressed === RIGHT_KEY && !goingLeft) {
+        dx = 10;
+        dy = 0;
+      }
+      
+      if (keyPressed === DOWN_KEY && !goingUp) {
+        dx = 0;
+        dy = 10;
+      }
+    }
+
+   
+
+    function food_cord(){
+
+        fx = Math.floor((Math.random() * 30) );
+        fy = Math.floor((Math.random() * 30) );
+        fx = 10*fx;
+        fy = 10*fy;
+        snake.forEach(function isFoodOnSnake(part) {
+        const foodIsOnSnake_or_maze = (part.x == fx && part.y == fy) || food_in_maze(maze_1,fx,fy);
+        if (foodIsOnSnake_or_maze)
+        food_cord();
+        })};
+
+
+    function food_draw()
+        {
+          ctx.fillStyle = "red";
+          ctx.fillRect(fx, fy, 9, 9);
+          ctx.strokeRect(fx, fy, 9, 9);
+
+    };
+
+    function game_end() {
+
+        for (let i = 4; i < snake.length; i++) {
+        var didCollide = (snake[i].x === snake[0].x) && (snake[i].y === snake[0].y);
+        if (didCollide) return true;
+        }
+
+        for (var i = 0; i < maze_1.length; i++) {
+        var didCollide =   snake[0].x===maze_1[i].x && snake[0].y===maze_1[i].y;
+        if (didCollide) return true;
+        };
+
+        const hitLeftWall = snake[0].x < 0;
+        const hitRightWall = snake[0].x > gameCanvas.width - 10;
+        const hitToptWall = snake[0].y < 0;
+        const hitBottomWall = snake[0].y > gameCanvas.height - 10;
+        wall = hitLeftWall || hitRightWall ||  hitToptWall || hitBottomWall
+        return   wall;
+
+
+    }
+
+    function food_in_maze(maze,x,y) {
+
+
+        for (var i = 0; i <maze.length ; i++) {
+            if(maze[i].x == x && maze[i].y == y) {food_maze = 1; }
+        };
+        return food_maze;
+
+    }
+
+
+
+    </script>
+  </body>
+</html>
