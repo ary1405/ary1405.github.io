@@ -1,7 +1,7 @@
 const STEP_LENGTH = 1;
 const CELL_SIZE = 4;
 const BORDER_WIDTH = 2;
-const MAX_FONT_SIZE = 500;
+const MAX_FONT_SIZE = 100;
 const MAX_ELECTRONS = 20;
 const CELL_DISTANCE = CELL_SIZE + BORDER_WIDTH;
 
@@ -16,7 +16,7 @@ const BG_COLOR = "#1d2227";
 const BORDER_COLOR = "#13191f";
 const CELL_HIGHLIGHT = "#328bf6";
 const ELECTRON_COLOR = "#00b07c";
-const FONT_COLOR = "green";
+const FONT_COLOR = "#328bf6";
 
 const FONT_FAMILY =
   'Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuan Yi Micro Hei", sans-serif';
@@ -728,7 +728,7 @@ const shape = {
         background: CELL_HIGHLIGHT,
         electronOptions: {
           lifeTime,
-          speed: 3,
+          speed: 1,
           color: CELL_HIGHLIGHT,
         },
       });
@@ -772,7 +772,7 @@ const shape = {
 let timer;
 
 function queue() {
-  const text = "BBAE";
+  const text = "KTJ-2021";
 
   let i = 0;
   const max = text.length;
@@ -781,6 +781,7 @@ function queue() {
     if (i >= max) return;
 
     shape.print(text.slice(0, ++i));
+
     timer = setTimeout(run, 1e3 + i);
   };
 
@@ -788,7 +789,7 @@ function queue() {
 }
 
 function countdown() {
-  const arr = _.range(3, 0, -1);
+  const arr = _.range(10, 0, -1);
 
   let i = 0;
   const max = arr.length;
@@ -811,7 +812,7 @@ function galaxy() {
     radius: 0,
     increment: 1,
     lifeTime: 100,
-    electronCount: 1,
+    electronCount: 10,
   });
 
   timer = setTimeout(galaxy, 16);
@@ -865,7 +866,8 @@ document
   });
 
 shape.init();
-shape.print("BBAE");
+shape.print("KTJ-2021");
+ring();
 
 // prevent zoom
 document.addEventListener("touchmove", (e) => e.preventDefault());

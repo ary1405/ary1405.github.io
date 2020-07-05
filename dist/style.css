@@ -1,3 +1,38 @@
+.header {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  /*width: 8em;
+  max-width: 80%;*/
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1em;
+  text-align: center;
+  z-index: 999999999;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.header-img-left {
+  margin-left: -15%;
+}
+.header-img-right {
+  margin-left: 15%;
+}
+
+.header-link {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1em;
+}
+a:hover {
+  color: #ee7c5f;
+}
 #input {
   position: absolute;
   bottom: 10px;
@@ -26,7 +61,7 @@
   height: 100px;
 }
 body {
-  position: fixed;
+  /*position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -36,5 +71,5 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;*/
 }
